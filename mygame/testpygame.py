@@ -12,9 +12,11 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = screen
         
-        self.rect = pygame.Rect(0, 0, 15, 3)
+        self.image = pygame.image.load('images/2.jpg')
+        self.rect = self.image.get_rect()
+        #self.rect = pygame.Rect(0, 0, 15, 3)
         self.rect.centery = fox.rect.centery
-        self.rect.right = fox.rect.right - 2
+        self.rect.left = fox.rect.right
         
         # 储存用小数表示的子弹位置
         self.x = float(self.rect.x)
@@ -22,13 +24,14 @@ class Bullet(Sprite):
         
     def update(self):
         """向右移动子弹"""
-        self.x += 2
+        self.x += 0.5
         # 更新子弹位置
         self.rect.x = self.x
         
     def draw_bullet(self):
-        """给子弹上色"""
-        pygame.draw.rect(self.screen, self.color, self.rect)
+        """绘制子弹"""
+        #pygame.draw.rect(self.screen, self.color, self.rect)
+        self.screen.blit(self.image, self.rect)
         
         
 class Fox(object):
@@ -47,6 +50,8 @@ class Fox(object):
         # 设置移动标记
         self.moving_up = False
         self.moving_down = False
+        self.moving_left = False
+        self.moving_right = False
         
     def update(self):
         """更新六尾的图片位置"""
@@ -55,6 +60,12 @@ class Fox(object):
             
         if self.moving_up and self.rect.top > 0:
             self.rect.centery -= 1
+        
+        if self.moving_left and self.rect.left > 0:
+            self.rect.centerx -= 1
+        
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            self.rect.centerx += 1
         
     def blitme(self):
         self.screen.blit(self.image, self.rect)
@@ -72,6 +83,12 @@ def check_events(screen, fox, bullets):
                 
             elif event.key == pygame.K_DOWN:
                 fox.moving_down = True
+            
+            elif event.key == pygame.K_LEFT:
+                fox.moving_left = True
+
+            elif event.key == pygame.K_RIGHT:
+                fox.moving_right = True
                 
             elif event.key == pygame.K_SPACE:
                 """创建一颗子弹"""
@@ -84,6 +101,12 @@ def check_events(screen, fox, bullets):
                 
             elif event.key == pygame.K_DOWN:
                 fox.moving_down = False
+                
+            elif event.key == pygame.K_LEFT:
+                fox.moving_left = False
+
+            elif event.key == pygame.K_RIGHT:
+                fox.moving_right = False
 
 def run_game():
     """运行游戏的主题"""
