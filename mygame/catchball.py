@@ -8,6 +8,8 @@ from pygame.sprite import Sprite, Group
 
 from settings import Settings
 
+# 全局变量 定义生命数
+life = 3
 
 class Seed(Sprite):
     """妙蛙种子的设定"""
@@ -63,6 +65,8 @@ def check_collisions(seeds, fires, screen):
         collisions = pygame.sprite.groupcollide(fires, seeds, True, False)
         for fire in fires:
             if fire.rect.top > 800:
+                global life
+                life -= 1
                 fires.remove(fire)
                 new_fire = Fire(screen)
                 fires.add(new_fire)
@@ -83,8 +87,11 @@ def run_game():
     fires = Group()
     seeds = Group()
     seeds.add(seed)
+    global life
     
     while True:
+        if life < 0:
+            break
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()

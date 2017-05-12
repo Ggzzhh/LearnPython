@@ -24,6 +24,7 @@ class Ship(object):
         self.centerx = float(self.rect.centerx)
         self.centery = float(self.rect.centery)
         
+        
         # 移动标志
         self.moving_right = False
         self.moving_left = False
@@ -55,4 +56,11 @@ class Ship(object):
     def blitme(self):
         """在制定位置绘制飞船"""
         self.screen.blit(self.image, self.rect)
+    
+
+    def center_ship(self):
+        """让飞船在屏幕上居中"""
+        self.centerx = self.screen_rect.centerx # 飞船的中心位置 在屏幕的中心位置
+        self.centery = self.screen_rect.bottom - 20
+
         

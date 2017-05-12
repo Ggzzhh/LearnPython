@@ -19,7 +19,7 @@ class Bullet(Sprite):
         self.rect.left = fox.rect.right
         # 储存用小数表示的子弹位置
         self.x = float(self.rect.x)
-        self.color = (255, 105, 180)
+        #self.color = (255, 105, 180)
         
     def update(self):
         """向右移动子弹"""

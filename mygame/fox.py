@@ -9,7 +9,7 @@ class Fox(object):
     def __init__(self, screen):
         """设置六尾的图片以及默认位置"""
         self.screen = screen
-        self.image = pygame.image.load('images/x1.png')
+        self.image = pygame.image.load('images/1.png')
         self.rect = self.image.get_rect()
         self.screen_rect = self.screen.get_rect()
         self.speed = 1
@@ -35,7 +35,7 @@ class Fox(object):
         if self.moving_left and self.rect.left > 0:
             self.rect.centerx -= self.speed
         
-        if self.moving_right and self.rect.right < self.screen_rect.right:
+        if self.moving_right and self.rect.right < 250:
             self.rect.centerx += self.speed
         
     def blitme(self):
