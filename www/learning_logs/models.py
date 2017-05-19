@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.contrib.auth.models import User
 
 # 在这里创建模型
 class Topic(models.Model):
-    """learn"""
+    """用户要学习的主题"""
     text = models.CharField(max_length=200) # 创建一个最大长度为200的文本
     date_added = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User)
     
     class Meta:
         verbose_name = "主题"
