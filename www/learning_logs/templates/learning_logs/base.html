@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">   
+<head>   
+<title>学习日志</title>   
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
+<meta http-equiv="Content-Language" content="zh-CN" />   
+<meta name="author" content="Ggzzhh" />   
+<meta name="description" content="学习日志" />   
+<meta name="keywords" content="python html css javascript ajax java java ee"/>  
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />  
+<meta name="viewport" content="width=device-width" />     
+</head>  
+<body>
+  <p>
+    <a href="{% url 'learning_logs:index' %}">学习日志首页</a> - 
+    <a href="{% url 'learning_logs:topics' %}">主题</a> -
+    {% if user.is_authenticated %}
+      欢迎你，{{ user.username }}!
+      <a href="{% url 'users:logout' %}">注销</a>
+    {% else %}
+      <a href="{% url 'users:login' %}">登录</a> -
+      <a href="{% url 'users:register' %}">注册</a>
+    {% endif %}
+  </p>
+  
+  {% block content %}{% endblock content %}
+</body>  
+</html>  

@@ -1,0 +1,23 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+
+    <p> 主题: {{ topic }} </p>
+    
+    <p> 条目: </p>
+    <p><a href="{% url 'learning_logs:new_entry' topic.id %}">添加一个新条目</a></p>
+    <ul>
+      {% for entry in entries %}
+        <li>
+          <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
+          <p>{{ entry.text|linebreaks }}</p>
+          <p>
+            <a href="{% url 'learning_logs:edit_entry' entry.id %}">编辑</a>
+          </p>
+        </li>
+      {% empty %}
+        <li>现在这个主题没有条目</li>
+      {% endfor %}
+    </ul>
+    
+{% endblock content %}
