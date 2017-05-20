@@ -1,11 +1,24 @@
 {% extends "blogs/base.html" %}
+{% load bootstrap3 %}
+
+{% block header%}
+<div class="jumbotron" >
+    <h1>编写新博客</h1>
+</div>
+{% endblock header%}
 
 {% block content %}
-    <p>新博客</p>
-    <form action="{% url 'blogs:new_blog' %}" method="post">
+
+    <form action="{% url 'blogs:new_blog' %}" method="post" class="form">
       {% csrf_token %}
-      <p>标题：{{ form.title }}</p>
-      <p>内容：{{ form.text }}</p>
-      <button name="submit">提交</button>
+
+        <h3>标题</h3>
+        {% bootstrap_field form.title placeholder='在这里写标题'%}
+        <h3>内容</h3>
+        {% bootstrap_field form.text placeholder='在这里写内容'%}
+
+      {% buttons %}
+       <button name="submit" class="btn btn-primary">提交</button>
+      {% endbuttons %}
     </form>
 {% endblock content %}

@@ -1,20 +1,69 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">   
-<head>   
-<title>个人微博客</title>   
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
-<meta http-equiv="Content-Language" content="zh-CN" />   
-<meta name="author" content="Ggzzhh" />   
-<meta name="description" content="学习日志" />   
-<meta name="keywords" content="python html css javascript ajax java java ee"/>  
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />  
-<meta name="viewport" content="width=device-width" />     
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="zh-CN" />
+  <meta name="author" content="Ggzzhh" />
+  <meta name="description" content="学习日志" />
+  <meta name="keywords" content="python html css javascript ajax java java"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <title>个人微博客</title>
+  <style>
+    body {
+      padding: 60px;
+    }
+  </style>
 </head>  
 <body>
-  <p padding="center">
-    <a href="{% url 'blogs:index' %}">博客首页</a>
-  </p>
-  {% block content %}
-    
-  {% endblock content %}
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed"
+                data-toggle="collapse" data-target="#navbar-1"
+                aria-expanded="false">
+        </button>
+
+        <a href="{% url 'blogs:index' %}" class="navbar-brand">
+          <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        </a>
+      </div>
+
+
+      <div class="collapse navbar-collapse" id="navbar-1">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{% url 'blogs:show_blog' %}">浏览博客</a>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li><a href="#">你好, {{ user.username }}</a></li>
+          <li><a href="{% url 'users:logout' %}">注销</a></li>
+          {% else %}
+          <li><a href="{% url 'users:register' %}">注册</a></li>
+          <li><a href="{% url 'users:login' %}">登录</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="page-header">
+      {% block header %}
+      {% endblock header %}
+    </div>
+    <div>
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+  </div>
+
 </body>  
 </html>  

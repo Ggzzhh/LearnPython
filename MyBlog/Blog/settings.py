@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 安全警告：保持秘密密钥用于生产秘密
 SECRET_KEY = '(46gs8#)%e%0qxt2b#1e#5vq3q6ek0-@f86#&khf6y!(-5&a+h'
 
-# 安全警告：不要在生产调试时运行！
+# 安全警告：正式运行时更改为False
 DEBUG = True
-
+# 设置为LOCALHOST
 ALLOWED_HOSTS = []
 
 
@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 第三方应用
+    'bootstrap3',
+    
     # 我的应用
-    'blogs'
+    'blogs',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +125,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 我的设置
+LOGIN_URL = '/users/login'
+
+# django-bootstrap3的设置
+BOOTSTRAP3 = {
+    'include_jquery': True,
+}

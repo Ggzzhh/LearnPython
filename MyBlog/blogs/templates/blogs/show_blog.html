@@ -1,0 +1,46 @@
+{% extends "blogs/base.html" %}
+
+{% block header%}
+<div class="jumbotron" >
+    <h1>博客</h1>
+    <p class="text-right">
+        <a href="{% url 'blogs:new_blog' %}">添加新博客</a>
+    </p>
+</div>
+{% endblock header%}
+
+
+{% block content %}
+<!--开始循环输出所有博客-->
+{% for blog in blogs%}
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <h4>
+            <p class="alert alert-danger">{{blog.title}}</p>
+        </h4>
+        <div class="jumbotron">
+                {{ blog.text }}
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-3 text-left ">
+                {% if blog.owner == user %}
+                <a href="{% url 'blogs:edit_blog' blog.id %}" >
+                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    编辑
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-md-9 text-right">
+                作者：{{ blog.owner }}
+                &nbsp;&nbsp;&nbsp;
+                {{ blog.date_added|date:'Y年 M d日 H:i' }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}

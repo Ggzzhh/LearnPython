@@ -1,18 +1,24 @@
 {% extends "blogs/base.html" %}
 
+{% block header%}
+<div class="jumbotron">
+    <h1 class="text-center">欢迎来到我的博客</h1>
+    <br>
+    <p>
+        这个博客记录了本人学习python所获得的大部分知识,<br>
+        也是我学习python后所做的第一个网站，<br>
+        你也可以使用这个人博客来记录一些你的信息。<br>
+    </p>
+    <br>
+    <p>
+        <a href="{% url 'blogs:show_blog' %}" class="btn btn-primary btn-lg">
+            点击这里开始浏览这里所有的博客
+        </a>
+    </p>
+
+</div>
+{% endblock header%}
+
 {% block content %}
 
-    <p><a href="{% url 'blogs:new_blog' %}">添加新博客</a></p>
-
-    <ul>
-      {% for blog in blogs%}
-      <li>
-        <p>标题：{{ blog.title }}</p>
-        <p>{{ blog.text }}</p>
-        <p><a href="{% url 'blogs:edit_blog' blog.id %}">编辑</a></p>
-      </li>
-      {% empty %}
-      <li>还没有博客，快去创建你的第一个博客吧！</li>
-      {% endfor %}
-    </ul>
 {% endblock content %}
