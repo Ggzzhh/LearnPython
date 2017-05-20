@@ -1,14 +1,21 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <h2>主题<a href="{% url 'learning_logs:topic' topic.id %}">
+    {{ topic }}</a><h2>
+{% endblock header %}
 
 {% block content %}
-  
-  <p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p>
-  
-  <p>添加新条目</p>
-  <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post'>
+
+  <h3>添加新条目</h3>
+  <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post'
+        class="form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name='submit'>提交</button>
+    {% bootstrap_filed form.title %}
+    {% buttons %}
+    <button name='submit' class="btn btn-info">提交</button>
+    {% endbuttons %}
   </form>
   
 {% endblock content %}

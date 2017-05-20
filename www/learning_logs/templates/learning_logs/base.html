@@ -1,27 +1,59 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">   
-<head>   
-<title>学习日志</title>   
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
-<meta http-equiv="Content-Language" content="zh-CN" />   
-<meta name="author" content="Ggzzhh" />   
-<meta name="description" content="学习日志" />   
-<meta name="keywords" content="python html css javascript ajax java java ee"/>  
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />  
-<meta name="viewport" content="width=device-width" />     
-</head>  
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="zh-CN" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="author" content="Ggzzhh" />
+    <meta name="description" content="学习日志" />
+    <meta name="keywords" content="python html css javascript ajax java java "/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>学习日志</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
 <body>
-  <p>
-    <a href="{% url 'learning_logs:index' %}">学习日志首页</a> - 
-    <a href="{% url 'learning_logs:topics' %}">主题</a> -
-    {% if user.is_authenticated %}
-      欢迎你，{{ user.username }}!
-      <a href="{% url 'users:logout' %}">注销</a>
-    {% else %}
-      <a href="{% url 'users:login' %}">登录</a> -
-      <a href="{% url 'users:register' %}">注册</a>
-    {% endif %}
-  </p>
-  
-  {% block content %}{% endblock content %}
+<!-- 静态导航 -->
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+            </button>
+            <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+                学习日志</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'learning_logs:topics' %}">主题</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li><a>你好，{{ user.username }}</a></li>
+                <li><a href="{% url 'users:logout' %}">注销</a></li>
+                {% else %}
+                <li><a href="{% url 'users:login' %}">登录</a></li>
+                <li><a href="{% url 'users:register' %}">注册</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        {% block header %}{% endblock header %}
+    </div>
+    <div>
+        {% block content %}{% endblock content %}
+    </div>
+</div> <!-- /container -->
+
 </body>  
 </html>  
