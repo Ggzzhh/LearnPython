@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import BlogPost
 from .forms import BlogForm
@@ -16,9 +17,22 @@ def index(request):
     return render(request, 'blogs/index.html')
 
 def show_blog(request):
-    """展示所有的博客"""
+    """展示所有的博客,并分页"""
     blogs = BlogPost.objects.order_by('-date_added')
-    context = {'blogs': blogs}
+    paginator = Paginator(blogs, 5)
+    
+    page = request.GET.get('page')
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # 如果页面不是整数，请发送第一页。
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # 如果页面超出范围（例如9999），提交最后一页的结果。
+        contacts = paginator.page(paginator.num_pages)
+        
+    context = {'blogs': blogs, 'contacts': contacts,
+               'page_range': paginator.page_range}
     return render(request, 'blogs/show_blog.html', context)
 
 @login_required
