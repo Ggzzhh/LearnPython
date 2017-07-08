@@ -1,6 +1,0 @@
-In Python you can : list = [x for x in range(1,101)]
-In Python you can : print('回文' if str[::-1] == str else '不是回文' )
-In Python you can : print ('\n'.join([' '.join(['%s*%s=%-2s' % (y,x,x*y) for y in range(1,x+1)]) for x in range(1,10)]))
-In Python you can : [ i for i in range(100,1000) if sum([pow(int(str(i)[k]),3) for k in range(3)]) == i ]
-In Python you can : reduce(lambda x, y: x * y, range(1,input('number:')+1), 1)
-In Python you can : [chr(i) for i in range(97,123)]
